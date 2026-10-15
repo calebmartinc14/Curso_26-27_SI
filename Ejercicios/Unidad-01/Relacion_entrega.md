@@ -51,6 +51,17 @@
 
 ![Ejercicio 5 apartado d y ejercicio 6](images/ejercicio5d_y6_relacionentrega_caleb.jpg)
 
+### Ejercicio 7
+
+- Apartado a 100010011 (2 // 275 (10
+- Apartado b 111000.01 (2 // 56.25 (10
+- Apartado c izquierda 0010100100 (2 // 164 (10
+- Apartado c derecha 00000101 (2 // 5 (10 (se pierde 001, es decir 0.125)
+
+**La siguiente imagen corresponde al ejercicio 7:**
+
+![Ejercicio 7](images/ejercicio7_relacionentrega_caleb.jpg)
+
 ### Ejercicio 8
 
 - 32 GiB = 2^35 bytes = 34.359.738.368 B
@@ -76,5 +87,28 @@ S = (A·B)' · (A+C)'
 **La siguiente imagen corresponde a los ejercicios 8 y 9:**
 
 ![Ejercicios 8 y 9](images/ejercicio8y9_relacionentrega_caleb.jpg)
+
+### Ejercicio 10
+
+- Apartado a Tabla de verdad:
+
+| A | B | C | S |
+|---|---|---|---|
+| 0 | 0 | 0 | 1 |
+| 0 | 0 | 1 | 0 |
+| 0 | 1 | 0 | 0 |
+| 0 | 1 | 1 | 0 |
+| 1 | 0 | 0 | 0 |
+| 1 | 0 | 1 | 1 |
+| 1 | 1 | 0 | 1 |
+| 1 | 1 | 1 | 1 |
+
+- Apartado b S = A'B'C' + AB'C + ABC' + ABC // Σm(0, 5, 6, 7)
+- Apartado c S = A'B'C' + AB + AC
+- Apartado d S = (A'·B'·C') + (A·B) + (A·C) // 3 NOT, 1 AND de 3 entradas, 2 AND de 2 entradas y 1 OR de 3 entradas
+
+**La siguiente imagen corresponde al ejercicio 10:**
+
+![Ejercicio 10](images/ejercicio10_relacionentrega_caleb.jpg)
 
 ### Fecha: 15-October-2026
