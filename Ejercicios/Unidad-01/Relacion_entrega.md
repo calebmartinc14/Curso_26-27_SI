@@ -111,4 +111,5 @@ S = (A·B)' · (A+C)'
 
 ![Ejercicio 10](images/ejercicio10_relacionentrega_caleb.jpg)
 
+![Ejercicio 10 dibujo](images/ejercicio10dibujo_relacionentrega_caleb.jpg)
 ### Fecha: 15-October-2026
