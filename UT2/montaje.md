@@ -32,7 +32,7 @@
 
 **Síntomas conocidos, piezas ausentes o daños observados:**
 
-________________________________________________________________________
+La ficha de recepción indica que el equipo estaba completo. Durante la revisión se observó un cable SATA doblado (apartado 5).
 
 **Estado inicial del equipo**
 
@@ -65,13 +65,13 @@ ________________________________________________________________________
 
 | Componente | Marca / modelo | Dato observado |
 |---|---|---|
-| Placa base | GA-B85M-DS3H | |
-| Procesador | Intel Celeron G1840 | |
-| RAM | Crucial 2 GB DDR3 | |
-| Almacenamiento | Western Digital 500 GB | |
-| Fuente | Power Man 300 W | |
-| Disipador / ventilador | De serie | |
-| Tarjetas / otros | | |
+| Placa base | Gigabyte GA-B85M-DS3H | Ranuras PCIe y conectores SATA. |
+| Procesador | Intel Celeron G1840 | 2,80 GHz, grabados en el procesador. |
+| RAM | Crucial | Un módulo de 2 GB DDR3. |
+| Almacenamiento | Western Digital WD Blue WD5000AAKX | Disco duro SATA de 500 GB. |
+| Fuente | Power Man IP-S300EF7-2 H | Potencia de salida de 300 W, según la etiqueta. |
+| Disipador / ventilador | Intel de serie | Disipador con ventilador y cuatro anclajes. |
+| Tarjetas / otros | No identificadas | Las ranuras PCIe se ven vacías en la foto de la placa. |
 
 **Placa base y ranuras de expansión**
 
@@ -183,11 +183,11 @@ No retiréis la CPU ni el disipador sin indicación del profesor. Si se retira e
 
 **Problema encontrado / hipótesis:**
 
-________________________________________________________________________
+Se observó un doblez en el cable SATA de datos del disco.
 
 **Acción realizada y resultado observado:**
 
-________________________________________________________________________
+Se volvió a conectar el disco durante el montaje. En la foto final se ve el cableado conectado.
 
 ## 8. Comprobación final · Equipo A
 
@@ -200,7 +200,7 @@ ________________________________________________________________________
 
 **¿Encendido autorizado?** ☒ Sí  ☐ No
 
-**Resultado / motivo:** ___________________________________________________
+**Resultado / motivo:** Comprobación visual realizada. Resultado del encendido pendiente de registrar.
 
 Una observación no demuestra por sí sola la causa de una avería.
 
@@ -224,7 +224,7 @@ Utilizad vuestro propio ordenador funcional para los siguientes apartados.
 
 **Linux:** ☒ Instalado directamente  ☐ Máquina virtual
 
-**Sistema operativo y versión:** Omarchy, basado en Arch Linux, con Hyprland. **Versión:** ____________________
+**Sistema operativo y versión:** Omarchy 4.5.0 (`/etc/os-release`), basado en Arch Linux, con Hyprland.
 
 **Si es virtual: sistema anfitrión y programa de virtualización:** No procede.
 
@@ -232,9 +232,7 @@ Utilizad vuestro propio ordenador funcional para los siguientes apartados.
 
 **¿Arranca con normalidad? ¿Qué observáis desde el encendido hasta el inicio?**
 
-________________________________________________________________________
-
-________________________________________________________________________
+El portátil arrancó en modo UEFI y llegó a una sesión de Omarchy desde la que se ejecutaron los comandos de los apartados siguientes. Queda por registrar la secuencia de pantallas desde el encendido.
 
 **¿Qué es el POST y en qué se diferencia de la UEFI y del sistema operativo?**
 
@@ -254,6 +252,10 @@ Ejecutad `lscpu`. Adjuntad la salida revisada o indicad si el comando falla.
 
 **Arquitectura:** x86_64 (64 bits).  **CPU lógicas visibles:** 16.
 
+**Salida de `lscpu`**
+
+![Salida de lscpu en el Equipo B: Intel Core i7-13620H, arquitectura x86_64, 10 núcleos físicos y 16 CPU lógicas](images/montaje-22-equipo-b-lscpu.png)
+
 **¿Qué diferencia hay entre núcleo e hilo? ¿Qué podéis concluir de la salida?**
 
 Un núcleo es una unidad física de procesamiento. Un hilo de hardware es una unidad de ejecución lógica que el sistema operativo puede utilizar para planificar tareas. Un núcleo puede admitir más de un hilo, por lo que el número de CPU lógicas puede superar al de núcleos físicos. El i7-13620H tiene 10 núcleos y admite 16 hilos.
@@ -265,7 +267,11 @@ Un núcleo es una unidad física de procesamiento. Un hilo de hardware es una un
 Adjuntad las salidas de los comandos. Si alguno falla o no está disponible, anotadlo. Antes de entregarlas, ocultad usuarios, nombres de equipo, números de serie y UUID. En una máquina virtual pueden mostrarse recursos virtuales, no el hardware físico completo.
 
 **Memoria total instalada:** 16 GB, distribuidos en dos módulos de 8 GB.  
-**Memoria disponible:** ____________________
+**Memoria disponible:** 11 GiB en el momento de la captura. `free -h` mostraba 15 GiB de RAM total visible para Linux y 9,5 GiB libres.
+
+**Captura de los apartados 11–13**
+
+![Salida de free -h con la memoria del Equipo B, seguida de lsblk con el SSD y sus particiones y lspci con los dispositivos PCI](images/montaje-23-equipo-b-free-lsblk-lspci.png)
 
 **¿Qué significa «disponible» y por qué puede diferir de «libre»?**
 
@@ -275,9 +281,14 @@ La memoria libre es la RAM que no se está utilizando. La disponible estima cuá
 
 ## 12. Linux: almacenamiento · `lsblk`
 
-**Disco identificado:** SSD Samsung MZVL41T0HBLB-00BTW de 1 TB.
+**Disco identificado:** SSD Samsung MZVL41T0HBLB-00BTW de 1 TB. En `lsblk` aparece como `nvme0n1`, con un tamaño de 953,9 GiB.
 
-**Partición y punto de montaje, si aparecen:** ________________________________
+**Particiones y puntos de montaje:**
+
+- `nvme0n1p6` (2 GiB) está montada en `/boot`.
+- `nvme0n1p7` (243,2 GiB) contiene el volumen cifrado `omarchy_root`, que aparece asociado a `/`, `/home`, `/var/log` y `/var/cache/pacman/pkg`.
+
+[Captura de `lsblk`](images/montaje-23-equipo-b-free-lsblk-lspci.png).
 
 **Explicad la diferencia entre disco, partición y punto de montaje:**
 
@@ -287,9 +298,13 @@ El disco es el dispositivo físico de almacenamiento. Una partición es una divi
 
 ## 13. Linux: dispositivos · `lspci` y `lsusb`
 
-**Dispositivo 1 y función:** NVIDIA GeForce RTX 4060 Laptop GPU; tarjeta gráfica dedicada que procesa gráficos y acelera aplicaciones compatibles.
+**Dispositivo 1 y función:** NVIDIA GeForce RTX 4060 Laptop GPU (`01:00.0` en `lspci`). Es la tarjeta gráfica dedicada y acelera el procesamiento de gráficos y las aplicaciones compatibles.
 
-**Dispositivo 2 y función:** Intel Wi-Fi 6 AX201 160 MHz; adaptador de red inalámbrica que permite conectar el portátil a redes Wi-Fi.
+**Dispositivo 2 y función:** Intel Wi-Fi 6 AX201 160 MHz, adaptador de red inalámbrica. `lspci` muestra el controlador Intel Raptor Lake PCH CNVi WiFi en `00:14.3` y el registro de `iwlwifi` identifica el modelo AX201.
+
+[Captura de `lspci`](images/montaje-23-equipo-b-free-lsblk-lspci.png).
+
+**`lsusb`:** el comando no está disponible en el equipo.
 
 **¿Por qué podría no aparecer un componente físico o mostrarse de otra forma en una máquina virtual?**
 
@@ -333,4 +348,4 @@ Antes de entregar:
 
 - [ ] Ficha completa.
 - [x] Fotos identificadas.
-- [ ] Salidas de Linux revisadas.
+- [x] Salidas de Linux revisadas.
